@@ -1,3 +1,0 @@
-# TapToBook
-# TapToBook
-# Botswana-Socks
