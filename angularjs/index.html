@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="http://taptobook-dev-guestcheckout.azurewebsites.net/content/images/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
   <style>
     body {
@@ -11,19 +12,24 @@
       line-height: 1.42857143;
       padding: 5px;
       color: #292929;
-      font-family: "Avenir", "Helvetica", sans-serif;
+      font-family: "Helvetica", sans-serif;
     }
     div#mainBox {
       background-color: #FFFFFF;
       border-right: 1px solid #DDDDDD;
       padding: 40px;
+      margin-right: 0px;
     }
     div#specialOfferBox {
       background-color: #FFFFFF;
-      border-top: 1px solid #DDDDDD;
+      border-right: 1px solid #DDDDDD;
+      height: 800px;
+      overflow-y: auto;
+      padding: 0 0;
     }
     div#letsChatBox {
       background-color: #FFFFFF;
+      margin-left: 0px;
     }
     p.center,h1.center,h2.center,h3.center,h4.center,h5.center,h6.center {
       text-align: center;
@@ -33,7 +39,7 @@
       margin: auto;
     }
     img {
-      max-width: 50%
+      max-width: 80%
     }
     p.gray {
       color: rgba(55, 55, 55, 0.8);
@@ -106,7 +112,7 @@
     div.campaignBox {
       background-color: #EFEFEF;
       border-bottom: 3px solid #FF7707;
-      width: 80%;
+      width: 90%;
       margin-left: auto;
       margin-right: auto;
       padding: 5px;
@@ -132,7 +138,7 @@
       transition: box-shadow 0.5s;
       margin-left: auto;
       margin-right: auto;
-      width: 80%;
+      width: 90%;
       height: 80px;
       margin-top: 5px;
       margin-bottom: 5px;
@@ -153,6 +159,29 @@
       color: #ADADAD;
       text-decoration: line-through;
     }
+    div.loading {
+      position: fixed;
+      text-align: center;
+      width: 99%;
+      background-color: white;
+      height: 99%;
+      z-index: 99;
+      margin: auto;
+      padding: auto;
+      padding-top: auto;
+      padding-bottom: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    div.loading p {
+      font-size: 64px;
+      font-family: "Helvetica";
+      color: darkorange;
+    }
+    p.description {
+      font-size: 12px;
+    }
   </style>
   <title>Guest Checkout</title>
 </head>
@@ -162,9 +191,12 @@
 <script src="angular.min.js"></script>
 <body>
   <div ng-app="app" ng-controller="appCtrl">
+  <div class="loading">
+    <p>Loading...</p>
+  </div>
   <div class="row">
-    <div class="col-6" id="mainBox">
-      <h1 class="center">{{ companyName }}</h1>
+    <div class="col-2" id="mainBox">
+      <h2 class="center">{{ companyName }}</h1>
       <div class="centerDiv">
         <img src="trusted.png">
         <img ng-src="{{ imageLink }}">
@@ -172,26 +204,8 @@
       <h3>Address</h3>
       <p>{{ addressStreet }}<br>{{ addressPlace }}</p>
     </div>
-    <div class="col-6" id="letsChatBox">
-      <h1 class="center">Let's Chat</h1>
-      <p class="gray center">No waiting around! We’ll send you a text notification as replies come in.</p>
-      <form name="chatForm" autocomplete="on">
-        <div class="input-group centerDiv">
-          <input type="fname" name="fname" id="fname" placeholder="First Name">
-          <input type="lname" name="lname" id="lname" placeholder="Last Name">
-          <input type="email" name="email" id="email" placeholder="Email">
-          <input type="phone" name="phone" id="phone" placeholder="Phone Number">
-        </div><br>
-        <input type="checkbox" name="agree" id="agree">
-        <p class="agreement">{{ privacyPolicy1 }} <a><b><u>Privacy Policy</u></b></a> {{ privacyPolicy2 }}</p>
-        <br><br><br>
-        <input type="submit" class="inactiveButton" id="startChat" value="Start Chat">
-      </form>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12" id="specialOfferBox">
-      <br><h1 class="center">SPECIAL OFFER</h1>
+    <div class="col-8" id="specialOfferBox">
+      <br><br><h2 class="center">SPECIAL OFFER</h1>
       <div ng-repeat="campaign in campaigns">
         <div class="campaignBox row">
           <div class="col-8">
@@ -206,15 +220,31 @@
           <div class="offerBox row">
             <div class="col-8">
               <h3>{{ offer.service }}</h3>
-              <p>{{ offer.description }}</p>
+              <p class="description">{{ offer.description }}</p>
             </div>
             <div class="col-4">
-              <p class="newPrice">${{ offer.newPrice.toFixed(2) }}</p>
-              <p class="oldPrice">${{ offer.oldPrice.toFixed(2) }}</p>
+              <p class="newPrice">{{ offer.newPrice }}</p>
+              <p class="oldPrice">{{ offer.oldPrice }}</p>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="col-2" id="letsChatBox">
+      <br><br><h2 class="center">Let's Chat</h1>
+      <p class="gray center">No waiting around! We’ll send you a text notification as replies come in.</p>
+      <form name="chatForm" autocomplete="on">
+        <div class="input-group centerDiv">
+          <input type="fname" name="fname" id="fname" placeholder="First Name">
+          <input type="lname" name="lname" id="lname" placeholder="Last Name">
+          <input type="email" name="email" id="email" placeholder="Email">
+          <input type="phone" name="phone" id="phone" placeholder="Phone Number">
+        </div><br>
+        <input type="checkbox" name="agree" id="agree">
+        <p class="agreement">{{ privacyPolicy1 }} <a><b><u>Privacy Policy</u></b></a> {{ privacyPolicy2 }}</p>
+        <br><br><br>
+        <input type="submit" class="inactiveButton" id="startChat" value="Start Chat">
+      </form>
     </div>
   </div>
   </div>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Guest Checkout</title>
+<style>
+div.box {
+	vertical-align: top;
+	display: inline-block;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+div.note {
+	background-color: #DDDDDD;
+	height: 90px;
+	width: 120%;
+	border-bottom: 5px solid darkorange;
+  margin-top: 8px;
+	overflow: none;
+}
+div.leftBox {
+	width: 250px;
+	border-right: 1px solid #CCCCCC;
+	float: left;
+}
+div.rightBox {
+	width: 250px;
+	border-left: 1px solid #CCCCCC;
+	float: right;
+}
+div.center {
+	text-align: center;
+}
+div.button {
+	background-color: darkorange;
+	color: #FFFFFF;
+	margin-top: 40px;
+}
+div.button p {
+	margin: 5px;
+}
+div.bigButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 30px;
+  width: auto;
+  padding: 10px;
+  font-family: "Helvetica";
+}
+div.orangeButton {
+  background-color: darkorange;
+	color: #FFFFFF;
+}
+div.bottom {
+  vertical-align: bottom;
+  position: fixed;
+  width: 100%;
+}
+input.start {
+	background-color: #F8BF7C;
+	color: #FFFFFF;
+	margin-top: 40px;
+  border-radius: 5px;
+  vertical-align: bottom;
+  margin-right: 10px;
+  border: none;
+}
+div.hoverBox {
+	height: 150px;
+	width: 120%;
+	border-radius: 5px;
+  margin-top: 3px;
+  transition: box-shadow 0.5s;
+  position: relative;
+}
+div.hoverBox:hover {
+	box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.05);
+}
+p,h2,h3 {
+	font-family: "Helvetica";
+}
+h2, h3 {
+	color: #101000;
+}
+#offer {
+  text-align: center;
+  padding: 30px;
+}
+p {
+	color: #666633;
+}
+.big {
+	font-size: 25px;
+	text-align: right;
+	color: #000000;
+}
+.cross {
+	font-size: 20px;
+	color: #767654;
+	text-decoration: line-through;
+	text-align: right;
+}
+#agreement {
+	color: #000000;
+}
+input {
+	margin-top: 20px;
+	height: 30px;
+	font-size: 20px;
+	border-top: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	border-bottom: 1px solid black;
+}
+a {
+	text-decoration: none;
+  color: inherit;
+}
+img {
+  display: block;
+}
+div.mobileButtons {
+  vertical-align: top;
+}
+div.mobileButton {
+  color: #FFFFFF;
+  background-color: #000000;
+  width: 45%;
+  border: 2px solid #000000;
+  text-align: center;
+  font-family: "Helvetica";
+  height: 30px;
+  font-size: 24px;
+  display: inline-block;
+}
+div.imgdiv {
+  position: relative;
+  text-align: center;
+}
+div.imgdiv img {
+  margin: auto;
+}
+div.imgdiv p {
+  position: absolute;
+  bottom: 2px;
+  left: 100px;
+  right: 100px;
+}
+
+img.fade {
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0) 70%,
+      rgba(50, 50, 50, 70) 100%
+    ),
+    url("https://www.freepik.com/free-photos-vectors/white");
+}
+
+#centerBox {
+  width: calc(100% - 500px);
+  float: left;
+}
+#fname, #lname, #email, #phone {
+  display: block;
+  padding-top: 15px;
+}
+#formDiv {
+  position: relative;
+  text-align: center;
+}
+#formDiv p {
+  text-align: center;
+  margin: auto;
+}
+
+div.loading {
+  position: fixed;
+  text-align: center;
+  width: 99%;
+  background-color: white;
+  height: 99%;
+  z-index: 99;
+  margin: auto;
+  padding: auto;
+  padding-top: auto;
+  padding-bottom: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+div.loading p {
+  font-size: 64px;
+  font-family: "Helvetica";
+  color: darkorange;
+}
+div.purchaseBox {
+  position: fixed;
+  bottom: 0;
+  background-color: #EEEEEE;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+}
+.purchaseBox p {
+  font-size: 24px;
+  margin-left: 20px;
+}
+div.closeButton {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: black;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  font-family: "Helvetica";
+  position: relative;
+  top: 12px;
+  right: 12px;
+  display: flex;
+}
+div.smallText {
+  font-size: 12px;
+  text-decoration: underline;
+}
+</style>
+<link rel="shortcut icon" href="http://taptobook-dev-guestcheckout.azurewebsites.net/content/images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+<div class="loading">
+  <p>Loading...</p>
+</div>
+<div>
+  <div class="mobileButton" id="checkout" onclick="goCheckout()">Checkout</div><div class="mobileButton" id="chat" onclick="goChat()">Chat</div>
+	<div class="box leftBox" id="leftBox">
+		<h2 id="dev">{{ providerName }}</h2>
+    <div class="imgdiv" id="imgdiv">
+      <img src="trusted.png" width=200px>
+  		<img src="" width=240px class="fade" id="cart">
+  		<div id="separator"><br><br><br><br><br><br><br></div>
+      <div id="addressDiv">
+  		    <h3 id="address">Address</h3>
+  		    <p id="address1">4700 S Flamingo Rd<br>Plantation, FL 33223</p>
+      </div>
+    </div>
+	</div>
+	<div class="box" id="centerBox">
+		<h2 id="offer">{{ specialOffer }}</h2>
+    <template v-for="feature in features">
+  		<div class="note">
+  			<div class="box">
+  				<h2 id="newOffer">{{ feature.name }}</h2>
+  				<p id="subOffer">{{ feature.detail }}</p>
+  			</div>
+  			<div class="box" style="float: right;">
+  				<div class="button"><a href="http://www.google.com"><p style="color: #FFFFFF;">Share ⚡</p></a></div>
+  			</div>
+  		</div>
+  		<br>
+      <template v-for="offer in feature.offers">
+        <div class="closeButton" v-on:click="closePurchase(offer)" v-if="clickedOffer == offer.item">X</div>
+    		<div class="hoverBox" v-on:click="purchase(offer)">
+    			<br>
+    			<div class="box" style="float: left;" v-on:click="purchase">
+    				<h2 v-on:click="purchase(offer)">{{ offer.item }}</h2>
+    				<pre><p v-on:click="purchase(offer)">{{ offer.purchaseMessage }}</pre></p>
+    			</div>
+    			<div class="box" style="float: right;">
+    				<p class="big" v-on:click="purchase(offer)">{{ offer.discount }}</p>
+    				<p class="cross" v-on:click="purchase(offer)">{{ offer.originalPrice}}</p>
+    			</div>
+    		</div>
+      </template>
+    </template>
+    <div id="questions">
+      <div class="box"><p>Got questions?</p></div>
+      <div class="box"><p>Chat</p></div>
+      <div class="box"><p>Call</p></div>
+    </div>
+	</div>
+	<div class="box rightBox" id="rightBox">
+		<div class="box">
+      <div id="formDiv">
+			<h2>Let's chat</h2>
+			<p>No waiting around! We’ll send you a text notification as replies come in.</p>
+      <form>
+			<input type="text" name="fname" id="fname" placeholder="First Name" autocomplete="given-name">
+			<input type="text" name="lname" id="lname" placeholder="Last Name" autocomplete="family-name">
+			<input type="text" name="email" id="email" placeholder="Email" autocomplete="email">
+			<input type="text" name="phone" id="phone" placeholder="Phone Number" autocomplete="tel">
+			<span><p id="agreement"><input type="checkbox" name="agreement" id="agree" value="agree">
+			{{ signupPolicy1 }} <a href="https://www.google.com"><b><u>Privacy Policy</b></u></a> {{ signupPolicy2 }}</span></p>
+      </div>
+		</div>
+		<div class="bottom">
+			<input type="submit" name="startchat" id="startchat" value="Start Chat" class="start">
+		</div>
+    </form>
+	</div>
+</div>
+<div class="purchaseBox">
+  <p></p>
+  <div>&emsp;&emsp;&emsp;</div>
+  <div class="bigButton" style="background-color: #CCCCCC;"><div>PAY IN STORE<br><div class="smallText">(Regular price)</div></div></div>
+  <div>&emsp;</div>
+  <div class="orangeButton bigButton">PAY NOW</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+var button = "checkout";
+var device = "pc";
+
+var providerName = "";
+var jsonData = "";
+/* Dev Retail: 1289 */
+/* Bamangwato Socks: A92EE0 */
+/* Union Army: OA95871 */
+var companyCode = "OA95871";
+$.ajax({url: "http://taptobook-qa.azurewebsites.net/api/version/3_1/ProviderAsync/GetHashCodeDetails?hashCode=" + companyCode + "&resetShowChat=true&updateAnalytics=true", success: function(result){
+  loadData(result);
+}})
+
+var leftBoxApp = "";
+var centerBoxApp = "";
+function loadData(data) {
+  jsonData = data;
+  leftBoxApp = new Vue({
+    el: "#leftBox",
+    data: {
+      providerName: jsonData.ProviderData.Details.ProviderInformation.BusinessName,
+      image: jsonData.ProviderData.Details.ProviderInformation.BannerImageUrlName,
+      addressnum: jsonData.ProviderData.Details.ProviderInformation.Address,
+      addressplace: jsonData.ProviderData.Details.ProviderInformation.City + ", " + jsonData.ProviderData.Details.ProviderInformation.State + " " + jsonData.ProviderData.Details.ProviderInformation.ZipCode
+    }
+  })
+	document.title = "Guest Checkout – " + leftBoxApp.providerName + " – Services";
+  centerBoxApp = new Vue ({
+    el: "#centerBox",
+    data: function() {
+      var newOffers = [];
+      var newFeatures = [];
+      for (Campaign in jsonData.ProviderData.InsiderOffer.FavoriteOfferVM) {
+        campaign = jsonData.ProviderData.InsiderOffer.FavoriteOfferVM[Campaign];
+        for (Feature in campaign.FeatureDetails) {
+          feature = campaign.FeatureDetails[Feature];
+          var newFeature = {name: campaign.CampaignName, detail: campaign.Title, offers: []};
+          newFeatures.push(newFeature);
+          for (Service in feature.CustomServices) {
+            service = feature.CustomServices[Service];
+            if (service.isOffered) {
+              var description = "";
+              if (service.CustomDescription == null) {description = "Purchase online or redeem in store.";
+              } else {description = service.CustomDescription}
+              var discounted = "";
+              if (service.InsiderPrice == "0") {discounted = "FREE";}
+              else {discounted = "$" + String(service.InsiderPrice.toFixed(2))}
+              var newService = {item: service.CustomText,
+                purchaseMessage: description,
+                discount: discounted,
+                originalPrice: "$" + String(service.Amount.toFixed(2))}
+              newFeature.offers.push(newService);
+            }
+      }}}
+      var dict = {specialOffer: 'SPECIAL OFFER',
+      features: newFeatures,
+      clickedOffer: ""}
+      console.log(dict);
+      return dict;
+    },
+    methods: {
+      purchase: function(event) {
+        this.clickedOffer = event.item;
+        $(".purchaseBox p").html("Choose how you would like to make your payment for " + event.item);
+        $(".purchaseBox").show();
+      },
+      closePurchase: function(event) {
+        this.clickedOffer = "";
+        $(".purchaseBox").hide();
+      }
+    }
+  })
+  rightBoxApp = new Vue ({
+    el: "#rightBox",
+    data: {
+      signupPolicy1: jsonData.SignupPolicyText,
+      signupPolicy2: jsonData.SignupPolicyTextPart2
+    }
+  })
+  $("#address1").html(leftBoxApp.addressnum + ", " + leftBoxApp.addressplace + "<br />");
+  var noShareButton = jsonData.CampaignSettings.IsSharingDisabled;
+  if (noShareButton) {$(".button").hide();}
+  $("#cart").css('content', 'url("' + leftBoxApp.image + '"');
+  $(".loading").hide();
+  $(".purchaseBox").hide();
+}
+
+$(window).resize(function resized() {
+    if (document.documentElement.clientWidth <= 1150) {
+      $("#address").hide();
+      $("#checkout, #chat").show();
+      $("#leftBox").css('height', 'auto');
+      $("#centerBox").css('height', 'auto');
+      $("#rightBox").css('height', 'auto');
+      $("#addressdiv").css('position', 'absolute');
+      $("#addressdiv").css('color', 'white');
+      $("#addressdiv").css('bottom', '10px');
+      $("#address1").html(leftBoxApp.addressnum + ", " + leftBoxApp.addressplace + "<br />");
+      $("#address1").css('color', '#DDDDDD');
+      $("input").css('margin', 'auto');
+      $("#formDiv p").css('width', '80%');
+      $("div.bottom").css('margin-left', '44%');
+      $("#offer").css('background', 'linear-gradient(#FF8C00, #F8BF7C)');
+      $("#offer").css('width', '82%');
+      $("#offer").css('color', '#FFFFFF');
+      $("#separator").hide();
+      $("#cart").addClass("fade");
+      $("#cart").css('width', '70%');
+      $("#imgdiv").addClass("imgdiv");
+      $("#questions").show();
+      device = "mobile";
+    } else {
+      device = "pc";
+      $("#rightBox").show();
+      $("#checkout, #chat").hide();
+      $("#leftBox").css('display', 'inline-block');
+      $("#centerBox").css('display', 'inline-block');
+      $("#centerBox").css('width', 'calc(100% - 690px)');
+      $("#leftBox").css('width', '250px');
+      $("#leftBox").css('height', '600px');
+      $("#centerBox").css('height', '600px');
+      $("#rightBox").css('height', '600px');
+      $("#rightBox").css('width', '250px');
+      $("#address1").html(leftBoxApp.addressnum + "<br />" + leftBoxApp.addressplace);
+      if (document.documentElement.clientWidth <= 1300) {$(".note, .hoverBox").css('width', '120%');}
+      else {$(".note, .hoverBox").css('width', '115%');}
+      $("#dev").css('text-align', 'left');
+      $("#address").show();
+      $("#address1").css('display', 'block');
+      $("input").css('margin', 'inherit');
+      $("#formDiv p").css('width', 'auto%');
+      $("div.bottom").css('margin-left', '5%');
+      $("#offer").css('background', 'transparent');
+      $("#offer").css('width', 'auto');
+      $("#offer").css('color', '#000000');
+      $("#separator").show();
+      $("#cart").removeClass("fade");
+      $("#cart").css('width', '240px');
+      $("#address1").css('color', '#666633');
+      $("#imgdiv").removeClass("imgdiv");
+      $("#questions").hide();
+    }
+}).resize()
+
+function goCheckout() {button = "checkout";}
+function goChat() {button = "chat";}
+
+checkButtons();
+function checkButtons() {
+  var agreement = document.getElementById("agree").checked;
+  var fname = (document.getElementById("fname").value != "");
+  var lname = (document.getElementById("lname").value != "");
+  var email = (document.getElementById("email").value != "");
+  var phone = (document.getElementById("phone").value != "");
+  var done = (agreement && fname && lname && email && phone);
+  if (done) {
+    document.getElementById("startchat").style.background = "#FF8C00";
+  } else {
+    document.getElementById("startchat").style.background = "#F8BF7C";
+  }
+  if (device == "mobile") {
+    if (button == "checkout") {
+      $("#rightBox").hide();
+      $("#leftBox").css('display', 'block');
+      $("#centerBox").css('display', 'block');
+      $("#leftBox").css('width', '100%');
+      $("#centerBox").css('width', '100%');
+      $(".hoverBox, .note").css('width', '90%');
+      $("#dev").show();
+      $("#dev").css('text-align', 'center');
+      $("#address").hide();
+      $("#checkout").css("background-color", "#000000");
+      $("#checkout").css("color", "#FFFFFF");
+      $("#chat").css("background-color", "#FFFFFF");
+      $("#chat").css("color", "#000000");
+    } else {
+      $("#chat").css("background-color", "#000000");
+      $("#chat").css("color", "#FFFFFF");
+      $("#checkout").css("background-color", "#FFFFFF");
+      $("#checkout").css("color", "#000000");
+      $("#rightBox").show();
+      $("#leftBox").hide();
+      $("#centerBox").hide();
+      $("#rightBox").css('width', '100%');
+      $("#dev").hide();
+    }
+  }
+  setTimeout(checkButtons, 100);
+}
+</script>
+</body>
+</html>

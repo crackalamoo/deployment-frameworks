@@ -27,6 +27,13 @@ app.controller('appCtrl', function($scope, $location) {
     let time = dateTime[1].split(":");
     return formatTime(time) + ", " + formatMonth(date[1]) + " " + Number(date[2])
   }
+  function formatPrice(number) {
+    if (number > 0) {
+      return "$" + number.toFixed(2);
+    } else {
+      return "FREE";
+    }
+  }
   $scope.companyName = "Dev Retail";
   $scope.addressStreet = "4700 S Flamingo Rd";
   $scope.addressPlace = "Plantation, FL 33223";
@@ -40,9 +47,9 @@ app.controller('appCtrl', function($scope, $location) {
   // Bamangwato Socks: A92EE0
   // Definitely Not Poisoned Food: CBF798
   // Washington's Training Camp: C5542D
-  // Union Army: CD0BD4
+  // Union Army: OA95871
   // Take Back America: OA5E752
-  var companyCode = "OA5E752";
+  var companyCode = "OA95871";
   let url = "http://taptobook-qa.azurewebsites.net/api/version/3_1/ProviderAsync/GetHashCodeDetails?hashCode=" + companyCode + "&resetShowChat=true&updateAnalytics=false";
   var jsonData = $.ajax({
     url: url,
@@ -78,7 +85,7 @@ app.controller('appCtrl', function($scope, $location) {
             description = "Purchase online or redeem in-store.";
           }
           newCampaign.offers.push({service: service.CustomText, id: service.ProviderCustomFeatureDetailId, description: description,
-            oldPrice: service.Amount, newPrice: service.InsiderPrice, limited: service.IsLimitedQuantity});
+            oldPrice: formatPrice(service.Amount), newPrice: formatPrice(service.InsiderPrice), limited: service.IsLimitedQuantity});
         }
       }
     }
@@ -86,4 +93,6 @@ app.controller('appCtrl', function($scope, $location) {
   }
   $scope.campaigns = campaigns;
   console.log(jsonData);
+  $(".loading").hide();
+  document.title = "Guest Checkout – " + $scope.companyName + " – Services";
 });
