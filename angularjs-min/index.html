@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+
+<head>
+  <script>
+    var loadTimerStart = Date.now();
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="https://taptobook-dev-guestcheckout.azurewebsites.net/content/images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+  <style>
+    body {
+      background-color: #FFFFFF;
+      line-height: 1.42857143;
+      padding: 5px;
+      color: #292929;
+      font-family: "Helvetica", sans-serif;
+    }
+    div#mainBox {
+      background-color: #FFFFFF;
+      border-right: 1px solid #DDDDDD;
+      padding: 40px;
+      margin-right: 0px;
+    }
+    div#specialOfferBox {
+      background-color: #FFFFFF;
+      border-right: 1px solid #DDDDDD;
+      height: 800px;
+      overflow-y: auto;
+      padding: 0 0;
+    }
+    div#letsChatBox {
+      background-color: #FFFFFF;
+      margin-left: 0px;
+    }
+    p.center,h1.center,h2.center,h3.center,h4.center,h5.center,h6.center {
+      text-align: center;
+    }
+    div.centerDiv {
+      text-align: center;
+      margin: auto;
+    }
+    img {
+      max-width: 80%
+    }
+    p.gray {
+      color: rgba(55, 55, 55, 0.8);
+    }
+    input {
+      display: block;
+      font-size: 18px;
+      border-bottom: 1px solid #6D6D6D;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      height: 30px;
+      width: 80%;
+      height: 30px;
+      color: #404040;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding-left: 15px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+    input#agree {
+      margin-left: 60px;
+      display: inline;
+      width: 30px;
+      float: left;
+    }
+    input#startChat {
+      color: #FFFFFF;
+      width: 50%;
+      height: 50px;
+      font-size: 24px;
+      text-align: center;
+      border-bottom: none;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+    }
+    input.activeButton {
+      background-color: #FF770F;
+      cursor: pointer;
+    }
+    input.inactiveButton {
+      background-color: rgb(255, 119, 7, 0.5);
+      pointer-events: none;
+    }
+    p.agreement {
+      text-align: left;
+      position: relative;
+      top: 14px;
+      display: inline;
+    }
+    hr.halfBR {
+      visibility: hidden;
+      line-height: 7px;
+    }
+    div.button {
+      text-align: center;
+      padding: 5px;
+    }
+    div.orangeButton {
+      background-color: #FF770F;
+      cursor: pointer;
+      color: #FFFFFF;
+    }
+    div.campaignBox {
+      background-color: #EFEFEF;
+      border-bottom: 3px solid #FF7707;
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 5px;
+      height: 90px;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      overflow-y: scroll;
+    }
+    div.shareButton {
+      width: 100px;
+    }
+    div.verticalCenter {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    span.BlackAndWhite {
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%);
+    }
+    div.offerBox {
+      border-radius: 10px;
+      transition: box-shadow 0.5s;
+      margin-left: auto;
+      margin-right: auto;
+      width: 90%;
+      height: 90px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      padding: 5px;
+      overflow-y: scroll;
+    }
+    div.offerBox:hover {
+      box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.05);
+    }
+    p.newPrice {
+      text-align: right;
+      font-size: 24px;
+      margin-bottom: 0px;
+    }
+    p.oldPrice {
+      text-align: right;
+      font-size: 17px;
+      color: #ADADAD;
+      text-decoration: line-through;
+    }
+    div.loading {
+      position: fixed;
+      text-align: center;
+      width: 99%;
+      background-color: white;
+      height: 99%;
+      z-index: 99;
+      margin: auto;
+      padding: auto;
+      padding-top: auto;
+      padding-bottom: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    div.loading p {
+      font-size: 64px;
+      font-family: "Helvetica";
+      color: darkorange;
+    }
+    p.description {
+      font-size: 12px;
+    }
+  </style>
+  <title>Guest Checkout</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+<body>
+  <div ng-app="app" ng-controller="appCtrl">
+  <div class="loading" ng-hide="true">
+    <p>Loading...</p>
+  </div>
+  <div class="row">
+    <div class="col-2" id="mainBox">
+      <h2 class="center">{{ companyName }}</h1>
+      <div class="centerDiv">
+        <img src="http://taptobook-dev-guestcheckout.azurewebsites.net/content/images/TTB_trusted_logo.png?v=3.1">
+        <img ng-src="{{ imageLink }}">
+      </div><br><br><br><br>
+      <h3>Address</h3>
+      <p>{{ addressStreet }}<br>{{ addressPlace }}</p>
+    </div>
+    <div class="col-8" id="specialOfferBox">
+      <br><br><h2 class="center">SPECIAL OFFER</h1>
+      <div ng-repeat="campaign in campaigns">
+        <div class="campaignBox row">
+          <div class="col-10">
+            <h3>{{ campaign.name }}</h3>
+            <p>Ends {{ campaign.end }}</p>
+          </div>
+          <div class="col-2 verticalCenter">
+            <div class="button orangeButton shareButton">Share <span class="BlackAndWhite">⚡</span></div>
+          </div>
+        </div>
+        <div ng-repeat="offer in campaign.offers">
+          <div class="offerBox row">
+            <div class="col-8">
+              <h3>{{ offer.service }}</h3>
+              <p class="description">{{ offer.description }}</p>
+            </div>
+            <div class="col-4">
+              <p class="newPrice">{{ offer.newPrice }}</p>
+              <p class="oldPrice">{{ offer.oldPrice }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-2" id="letsChatBox">
+      <br><br><h2 class="center">Let's Chat</h1>
+      <p class="gray center">No waiting around! We’ll send you a text notification as replies come in.</p>
+      <form name="chatForm" autocomplete="on">
+        <div class="input-group centerDiv">
+          <input type="fname" name="fname" id="fname" placeholder="First Name">
+          <input type="lname" name="lname" id="lname" placeholder="Last Name">
+          <input type="email" name="email" id="email" placeholder="Email">
+          <input type="phone" name="phone" id="phone" placeholder="Phone Number">
+        </div><br>
+        <input type="checkbox" name="agree" id="agree">
+        <p class="agreement">{{ privacyPolicy1 }} <a><b><u>Privacy Policy</u></b></a> {{ privacyPolicy2 }}</p>
+        <br><br><br>
+        <input type="submit" class="inactiveButton" id="startChat" value="Start Chat">
+      </form>
+    </div>
+  </div>
+  </div>
+  <br><br><br><br><br><br><br><br>
+<script>
+
+function checkButtons() {
+  let agreement = document.getElementById("agree").checked;
+  let fname = (document.getElementById("fname").value != "");
+  let lname = (document.getElementById("lname").value != "");
+  let email = (document.getElementById("email").value != "" && document.getElementById("email").value.includes("@") && document.getElementById("email").value.length > 2);
+  let phone = (document.getElementById("phone").value != "" && !(document.getElementById("phone").value.match(/[a-z]/i)) && 3 < document.getElementById("phone").value.length < 17);
+  let formComplete = (agreement && fname && lname && email && phone);
+  if (formComplete) {
+    document.getElementById("startChat").classList.add("activeButton");
+    document.getElementById("startChat").classList.remove("inactiveButton");
+  } else {
+    document.getElementById("startChat").classList.remove("activeButton");
+    document.getElementById("startChat").classList.add("inactiveButton");
+  }
+}
+setInterval(checkButtons, 100);
+</script>
+<script src="controller.js"></script>
+</body>
+
+</html>
