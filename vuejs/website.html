@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+  var loadTimerStart = Date.now();
+</script>
 <meta charset="UTF-8">
 <title>Guest Checkout</title>
 <style>
@@ -505,6 +508,11 @@ function checkButtons() {
   }
   setTimeout(checkButtons, 100);
 }
+</script>
+<script>
+$(window).load(function() {
+  console.log("Time to load:", (Date.now() - loadTimerStart)/1000.0, "seconds");
+});
 </script>
 </body>
 </html>

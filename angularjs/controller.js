@@ -96,3 +96,4 @@ app.controller('appCtrl', function($scope, $location) {
   // $(".loading").hide();
   document.title = "Guest Checkout – " + $scope.companyName + " – Services";
 });
+console.log("Time to load:", (Date.now() - loadTimerStart)/1000.0, "seconds");
