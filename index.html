@@ -15,24 +15,30 @@ h1 {
   padding-left: 15%;
 }
 h2 {
-  font-size: 36px;
+  font-size: 32px;
 }
 p,a {
   font-size: 24px;
 }
-a {
+a,a:visited {
   color: #FF7707;
   text-decoration: none;
   padding-left: 40px;
-}
-a:visited {
-  color: #FF7707;
 }
 a:hover {
   color: #FF9910;
 }
 a:active {
   color: #FF2202;
+}
+a.broken,a.broken:visited {
+  color: #EE0000;
+}
+a.broken:hover {
+  color: #AA0000;
+}
+a.broken:active {
+  color: #FF0000;
 }
 img {
   border: 5px solid #555555;
@@ -44,9 +50,9 @@ img {
 <h1>TapToBook</h1>
 <img src="https://is3-ssl.mzstatic.com/image/thumb/Purple118/v4/a9/85/74/a98574e7-ec52-7adb-8768-68f0aab3b29b/AppIcon-1x_U007emarketing-85-220-4.jpeg/246x0w.jpg">
 <h2>Frameworks Deployment Test</h2>
-<p>Click on a link:</p>
-<a href="vuejs/website.html">vuejs</a><br>
-<a href="reactjs/index.html">reactjs</a><br>
-<a href="angularjs/index.html">angularjs</a><br>
+<p>Choose a framework to test:</p>
+<a href="vuejs/website.html">VueJS</a><br>
+<a href="reactjs/home" class="broken">ReactJS (not working)</a><br>
+<a href="angularjs/index.html">AngularJS</a><br>
 </body>
 </html>
