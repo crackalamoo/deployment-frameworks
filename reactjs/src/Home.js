@@ -4,7 +4,7 @@ import myService from './services'
 class Home extends Component {
   constructor() {
     super();
-    this.companyData = {companyName: "Loading company...", imageLink: "img/cart.png",
+    this.companyData = {companyName: "Loading company...", imageLink: "",
       signupPolicy1: "I agree to sign up, and I have reviewed the ", signupPolicy2: " for further details",
       offerHTML: (<div>
         <div class="note">
