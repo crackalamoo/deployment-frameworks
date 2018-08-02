@@ -16,7 +16,7 @@ class Main extends Component {
       <BrowserRouter>
         <div>
           <div className="content">
-            <Route path="/home" component={Home}} />
+            <Route path="/home" component={Home} />
             <Route path="/stuff" component={Stuff}/>
             <Route path="/contact" component={Contact}/>
           </div>
