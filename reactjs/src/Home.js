@@ -224,7 +224,7 @@ class Home extends Component {
     } else {
       propDataArray = {companyID: ""};
     }
-    let url = "http://taptobook-qa.azurewebsites.net/api/version/3_1/ProviderAsync/GetHashCodeDetails?hashCode=" + companyCode + "&resetShowChat=true&updateAnalytics=true";
+    let url = "https://taptobook-qa.azurewebsites.net/api/version/3_1/ProviderAsync/GetHashCodeDetails?hashCode=" + companyCode + "&resetShowChat=true&updateAnalytics=true";
     let self = this;
     myService.getJsonData(url)
       .then(function(data) {

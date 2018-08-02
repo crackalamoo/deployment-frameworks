@@ -50,7 +50,7 @@ app.controller('appCtrl', function($scope, $location) {
   // Union Army: OA95871
   // Take Back America: OA5E752
   var companyCode = "OA95871";
-  let url = "http://taptobook-qa.azurewebsites.net/api/version/3_1/ProviderAsync/GetHashCodeDetails?hashCode=" + companyCode + "&resetShowChat=true&updateAnalytics=false";
+  let url = "https://taptobook-qa.azurewebsites.net/api/version/3_1/ProviderAsync/GetHashCodeDetails?hashCode=" + companyCode + "&resetShowChat=true&updateAnalytics=false";
   var jsonData = $.ajax({
     url: url,
     async: false,
