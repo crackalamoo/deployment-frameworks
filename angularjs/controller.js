@@ -93,6 +93,6 @@ app.controller('appCtrl', function($scope, $location) {
   }
   $scope.campaigns = campaigns;
   console.log(jsonData);
-  $(".loading").hide();
+  // $(".loading").hide();
   document.title = "Guest Checkout – " + $scope.companyName + " – Services";
 });
