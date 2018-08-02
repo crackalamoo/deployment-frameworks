@@ -95,5 +95,6 @@ app.controller('appCtrl', function($scope, $location) {
   console.log(jsonData);
   // $(".loading").hide();
   document.title = "Guest Checkout – " + $scope.companyName + " – Services";
+  console.log("Time to complete loading:", (Date.now() - loadTimerStart)/1000.0, "seconds");
 });
-console.log("Time to load:", (Date.now() - loadTimerStart)/1000.0, "seconds");
+console.log("Time for initial loading:", (Date.now() - loadTimerStart)/1000.0, "seconds");

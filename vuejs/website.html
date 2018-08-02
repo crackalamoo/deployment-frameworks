@@ -376,7 +376,7 @@ function loadData(data) {
       var dict = {specialOffer: 'SPECIAL OFFER',
       features: newFeatures,
       clickedOffer: ""}
-      console.log(dict);
+      console.log("Time to complete loading:", (Date.now() - loadTimerStart)/1000.0, "seconds");
       return dict;
     },
     methods: {
