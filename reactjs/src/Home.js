@@ -150,6 +150,7 @@ class Home extends Component {
     let newCampaign = "";
     let feature = "";
     let service = "";
+    let description = "";
     let mainDirectory = data.ProviderData.InsiderOffer.FavoriteOfferVM;
     if (mainDirectory == null) {
       mainDirectory = data.ProviderData.Details.Services
@@ -162,7 +163,8 @@ class Home extends Component {
         for (Service in feature.CustomServices) {
           service = feature.CustomServices[Service];
           if (service.isOffered) {
-            newCampaign.services.push({name: service.CustomText, id: service.ProviderCustomFeatureDetailId, description: service.CustomDescription,
+            description = service.CustomDescription != null ? service.CustomDescription: "Purchase online or redeem in store.";
+            newCampaign.services.push({name: service.CustomText, id: service.ProviderCustomFeatureDetailId, description: description,
               originalPrice: service.Amount, discount: service.InsiderPrice, limited: service.IsLimitedQuantity});
           }
         }
