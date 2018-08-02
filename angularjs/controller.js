@@ -92,8 +92,6 @@ app.controller('appCtrl', function($scope, $location) {
     campaigns.push(newCampaign);
   }
   $scope.campaigns = campaigns;
-  console.log(jsonData);
-  // $(".loading").hide();
   document.title = "Guest Checkout – " + $scope.companyName + " – Services";
   console.log("Time to complete loading:", (Date.now() - loadTimerStart)/1000.0, "seconds");
 });
