@@ -14,3 +14,5 @@ Each framework was tested 10 times. For ReactJS, I had to time it manually since
 For full load time data, see the Loading_Times excel file.
 
 Also, there is a python folder including the python data analysis I did with transaction data.
+
+To see the frameworks, go to https://crackalamoo.github.io/deployment-frameworks/
